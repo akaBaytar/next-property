@@ -37,6 +37,7 @@ const Hero = () => {
               <option value='Cabin Or Cottage'>Cabin or Cottage</option>
               <option value='Loft'>Loft</option>
               <option value='Room'>Room</option>
+              <option value='Room'>Chalet</option>
               <option value='Other'>Other</option>
             </select>
           </div>

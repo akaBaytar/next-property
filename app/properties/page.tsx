@@ -1,4 +1,7 @@
+import PropertyCard from '@/components/PropertyCard';
 import PROPERTIES from '@/mock/properties.json';
+
+import { Property } from '@/types';
 
 const PropertiesPage = () => {
   return (
@@ -7,9 +10,12 @@ const PropertiesPage = () => {
         {PROPERTIES.length === 0 ? (
           <p>No properties found.</p>
         ) : (
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {PROPERTIES.map((property) => (
-              <div key={property._id}>{property.name}</div>
+              <PropertyCard
+                key={property._id}
+                property={property as Property}
+              />
             ))}
           </div>
         )}
