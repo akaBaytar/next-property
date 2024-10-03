@@ -6,7 +6,7 @@ import { Property } from '@/types';
 const PropertiesPage = () => {
   return (
     <section className='px-4 py-6'>
-      <div className='container-xl lg:container m-auto px-4 py-6'>
+      <div className='container max-w-7xl mx-auto px-4 py-6'>
         <h2 className='text-2xl font-semibold text-indigo-500 mb-6'>
           All Properties
         </h2>
