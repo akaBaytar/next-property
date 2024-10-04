@@ -11,7 +11,7 @@ const HomeProperties = async () => {
 
   return (
     <>
-      <section className='px-4 py-6'>
+      <section className='px-2 py-6'>
         <div className='container max-w-7xl mx-auto px-4 py-6'>
           <h2 className='text-2xl font-semibold text-indigo-500 mb-6'>
             Recent Properties
