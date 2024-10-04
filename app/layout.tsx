@@ -1,9 +1,10 @@
 import { Poppins } from 'next/font/google';
+import type { Metadata } from 'next';
+
+import { ClerkProvider } from '@clerk/nextjs';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
-import type { Metadata } from 'next';
 
 import '@/styles/globals.css';
 
@@ -21,14 +22,16 @@ const poppins = Poppins({
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang='en'>
-      <body
-        className={`${poppins.className} antialiased flex flex-col justify-between min-h-screen`}>
-        <Navbar />
-        <main className='flex-1'>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='en'>
+        <body
+          className={`${poppins.className} antialiased flex flex-col justify-between min-h-screen`}>
+          <Navbar />
+          <main className='flex-1'>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 };
 
