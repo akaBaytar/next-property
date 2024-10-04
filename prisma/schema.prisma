@@ -7,6 +7,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  email     String     @unique
+  username  String?    @unique
+  image     String?
+  bookmarks Property[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
 model Property {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId     String     @db.ObjectId
+  owner       User       @relation(fields: [ownerId], references: [id])
+  name        String
+  type        String
+  description String
+  location    Location
+  beds        Int
+  baths       Int
+  squareFeet  Int        @map("square_feet")
+  amenities   String[]
+  rates       Rates
+  sellerInfo  SellerInfo @map("seller_info")
+  images      String[]
+  isFeatured  Boolean    @default(false) @map("is_featured")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+}
+
+type Location {
+  street  String
+  city    String
+  state   String
+  zipCode String
+}
+
+type Rates {
+  nightly Float?
+  weekly  Float?
+  monthly Float?
+}
+
+type SellerInfo {
+  name  String
+  email String
+  phone String
 }
