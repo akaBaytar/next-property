@@ -51,7 +51,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
           </p>
           <p className='flex items-center gap-1'>
             <FaRulerCombined />
-            {property.square_feet}
+            {property.squareFeet}
             <span>sq/ft</span>
           </p>
         </div>
@@ -82,7 +82,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
             </span>
           </div>
           <Link
-            href={`/properties/${property._id}`}
+            href={`/properties/${property.id}`}
             className='h-[36px] bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-center text-sm transition-colors duration-200'>
             Details
           </Link>

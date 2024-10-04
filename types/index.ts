@@ -9,34 +9,51 @@ type PropertyType =
   | 'Chalet'
   | 'Other';
 
+type Location = {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+};
+
+type Rates = {
+  nightly?: number;
+  weekly?: number;
+  monthly?: number;
+};
+
+type SellerInfo = {
+  name: string;
+  email: string;
+  phone: string;
+};
+
+export type User = {
+  id: string;
+  email: string;
+  username?: string;
+  image?: string;
+  bookmarks: Property[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type Property = {
-  _id: string;
-  owner: string;
+  id: string;
+  ownerId: string;
+  owner: User;
   name: string;
   type: PropertyType;
   description: string;
-  location: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-  };
+  location: Location;
   beds: number;
   baths: number;
-  square_feet: number;
+  squareFeet: number;
   amenities: string[];
-  rates: {
-    weekly?: number;
-    monthly?: number;
-    nightly?:number;
-  };
-  seller_info: {
-    name: string;
-    email: string;
-    phone: string;
-  };
+  rates: Rates;
+  sellerInfo: SellerInfo;
   images: string[];
-  is_featured: boolean;
-  createdAt: string;
-  updatedAt: string;
+  isFeatured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };

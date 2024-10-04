@@ -3,10 +3,11 @@ import Link from 'next/link';
 import PropertyCard from './PropertyCard';
 
 import { Property } from '@/types';
-import PROPERTIES from '@/mock/properties.json';
+import { getAllProperties } from '@/actions/properties.action';
 
-const HomeProperties = () => {
-  const recentProperties = PROPERTIES.slice(0, 6);
+const HomeProperties = async () => {
+  const properties = await getAllProperties();
+  const recentProperties = properties.slice(0, 6);
 
   return (
     <>
@@ -15,13 +16,13 @@ const HomeProperties = () => {
           <h2 className='text-2xl font-semibold text-indigo-500 mb-6'>
             Recent Properties
           </h2>
-          {PROPERTIES.length === 0 ? (
+          {properties.length === 0 ? (
             <p>No properties found.</p>
           ) : (
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {recentProperties.map((property) => (
                 <PropertyCard
-                  key={property._id}
+                  key={property.id}
                   property={property as Property}
                 />
               ))}
