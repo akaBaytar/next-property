@@ -11,11 +11,16 @@ import { FaGoogle } from 'react-icons/fa';
 import LOGO from '@/assets/logo-white.png';
 import PROFILE from '@/assets/profile.png';
 
+import { SignOutButton, SignInButton, useAuth, useUser } from '@clerk/nextjs';
+
 const Navbar = () => {
+  const { userId } = useAuth();
+  const { user } = useUser();
+
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
 
-  const [isLoggedIn] = useState(true);
+  const isLoggedIn = userId !== null;
 
   const pathname = usePathname();
 
@@ -91,10 +96,12 @@ const Navbar = () => {
           </div>
           {!isLoggedIn && (
             <div className='flex items-center'>
-              <button className='flex items-center text-white text-sm bg-indigo-700 hover:bg-indigo-800 rounded-md px-3 py-2 transition-colors duration-200'>
-                <FaGoogle className='me-2' />
-                <span>Login or Register</span>
-              </button>
+              <SignInButton mode='modal'>
+                <button className='flex items-center text-white text-sm bg-indigo-700 hover:bg-indigo-800 rounded-md px-3 py-2 transition-colors duration-200'>
+                  <FaGoogle className='me-2' />
+                  <span>Login or Register</span>
+                </button>
+              </SignInButton>
             </div>
           )}
           {isLoggedIn && (
@@ -136,8 +143,10 @@ const Navbar = () => {
                     <span className='sr-only'>Open user menu</span>
                     <Image
                       className='h-8 w-8 rounded-full'
-                      src={PROFILE}
+                      src={user?.imageUrl ??PROFILE}
                       alt='Profile Icon'
+                      width={64}
+                      height={64}
                     />
                   </button>
                 </div>
@@ -165,13 +174,15 @@ const Navbar = () => {
                       id='user-menu-item-2'>
                       Saved Properties
                     </Link>
-                    <button
-                      className='block w-full px-4 py-2 text-sm text-start text-gray-700 bg-white hover:bg-indigo-500 hover:text-white transition-colors duration-200 rounded-md'
-                      role='menuitem'
-                      tabIndex={-1}
-                      id='user-menu-item-2'>
-                      Sign Out
-                    </button>
+                    <SignOutButton redirectUrl='/'>
+                      <button
+                        className='block w-full px-4 py-2 text-sm text-start text-gray-700 bg-white hover:bg-indigo-500 hover:text-white transition-colors duration-200 rounded-md'
+                        role='menuitem'
+                        tabIndex={-1}
+                        id='user-menu-item-2'>
+                        Sign Out
+                      </button>
+                    </SignOutButton>
                   </div>
                 )}
               </div>

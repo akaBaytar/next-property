@@ -4,6 +4,7 @@ const isProtectedRoute = createRouteMatcher([
   '/properties/add',
   '/properties/saved',
   '/profile',
+  '/messages',
 ]);
 
 export default clerkMiddleware((auth, request) => {
