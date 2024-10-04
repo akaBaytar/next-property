@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
 import { FaArrowLeft } from 'react-icons/fa6';
+import PropertyInfo from '@/components/PropertyInfo';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage';
 
+import { Property } from '@/types';
 import { getProperty } from '@/actions/properties.action';
 
 const PropertyPage = async ({ params }: { params: { id: string } }) => {
@@ -22,9 +24,9 @@ const PropertyPage = async ({ params }: { params: { id: string } }) => {
           </div>
         </section>
         <section className='bg-indigo-50'>
-          <div className='container m-auto py-10 px-6'>
+          <div className='container m-auto pb-6 px-6'>
             <div className='grid grid-cols-1 md:grid-cols-70/30 w-full gap-6'>
-              {/* PROPERTY INFO */}
+              <PropertyInfo property={property as Property}/>
             </div>
           </div>
         </section>
