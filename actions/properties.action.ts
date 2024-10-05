@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 import prisma from '@/database';
+import cloudinary from '@/database/cloudinary';
 import { getFloat, getInt, getString, getUser } from '@/helpers';
 
 export const getAllProperties = async () => {
@@ -37,8 +38,7 @@ export const addProperty = async (formData: FormData) => {
 
   const images = formData
     .getAll('images')
-    .filter((img): img is File => img instanceof File && img.name !== '')
-    .map((img) => img.name);
+    .filter((img): img is File => img instanceof File && img.name !== '');
 
   const propertyData = {
     ownerId: userId,
@@ -65,8 +65,28 @@ export const addProperty = async (formData: FormData) => {
       email: getString(formData, 'seller_info.email'),
       phone: getString(formData, 'seller_info.phone'),
     },
-    images,
+    images: [] as string[],
   };
+
+  const imageURLs = [];
+
+  for (const image of images) {
+    const buffer = await image.arrayBuffer();
+    const imageArray = Array.from(new Uint8Array(buffer));
+    const imageData = Buffer.from(imageArray);
+    const imageBase64 = imageData.toString('base64');
+
+    const res = await cloudinary.uploader.upload(
+      `data:image/png;base64,${imageBase64}`,
+      {
+        folder: 'next-property',
+      }
+    );
+
+    imageURLs.push(res.secure_url);
+  }
+
+  propertyData.images = imageURLs;
 
   const newProperty = await prisma.property.create({
     data: propertyData,
