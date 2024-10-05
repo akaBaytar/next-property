@@ -1,10 +1,16 @@
 'use server';
 
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+
 import prisma from '@/database';
+import { getFloat, getInt, getString, getUser } from '@/helpers';
 
 export const getAllProperties = async () => {
   try {
-    const properties = await prisma.property.findMany();
+    const properties = await prisma.property.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
 
     return properties;
   } catch (error) {
@@ -19,39 +25,53 @@ export const getProperty = async (id: string) => {
 };
 
 export const addProperty = async (formData: FormData) => {
-  const amenities = formData.getAll('amenities');
+  const user = await getUser();
+
+  if (!user || !user.userId || typeof user.userId !== 'string') {
+    throw new Error('A valid user ID is required.');
+  }
+
+  const { userId } = user;
+
+  const amenities = formData.getAll('amenities') as string[];
 
   const images = formData
     .getAll('images')
-    .filter((image) => image instanceof File && image.name !== '')
-    .map((image) => image instanceof File && image.name);
+    .filter((img): img is File => img instanceof File && img.name !== '')
+    .map((img) => img.name);
 
   const propertyData = {
-    type: formData.get('type'),
-    name: formData.get('name'),
-    description: formData.get('description'),
+    ownerId: userId,
+    type: getString(formData, 'type'),
+    name: getString(formData, 'name'),
+    description: getString(formData, 'description'),
     location: {
-      street: formData.get('location.street'),
-      city: formData.get('location.city'),
-      state: formData.get('location.state'),
-      zipCode: formData.get('location.zipCode'),
+      street: getString(formData, 'location.street'),
+      city: getString(formData, 'location.city'),
+      state: getString(formData, 'location.state'),
+      zipCode: getString(formData, 'location.zipCode'),
     },
-    beds: formData.get('beds'),
-    baths: formData.get('baths'),
-    square_feet: formData.get('square_feet'),
+    beds: getInt(formData, 'beds'),
+    baths: getInt(formData, 'baths'),
+    squareFeet: getInt(formData, 'square_feet'),
     amenities,
     rates: {
-      nightly: formData.get('rates.nightly'),
-      weekly: formData.get('rates.weekly'),
-      monthly: formData.get('rates.monthly'),
+      nightly: getFloat(formData, 'rates.nightly'),
+      weekly: getFloat(formData, 'rates.weekly'),
+      monthly: getFloat(formData, 'rates.monthly'),
     },
-    seller_info: {
-      name: formData.get('seller_info.name'),
-      email: formData.get('seller_info.email'),
-      phone: formData.get('seller_info.phone'),
+    sellerInfo: {
+      name: getString(formData, 'seller_info.name'),
+      email: getString(formData, 'seller_info.email'),
+      phone: getString(formData, 'seller_info.phone'),
     },
     images,
   };
 
-  console.log(propertyData);
+  const newProperty = await prisma.property.create({
+    data: propertyData,
+  });
+
+  revalidatePath('/', 'layout');
+  redirect(`/properties/${newProperty.id}`);
 };
