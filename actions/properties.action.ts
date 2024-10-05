@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 import prisma from '@/database';
-import cloudinary from '@/database/cloudinary';
+import { uploadImages } from '@/database/cloudinary';
 import { getFloat, getInt, getString, getUser } from '@/helpers';
 
 export const getAllProperties = async () => {
@@ -68,23 +68,7 @@ export const addProperty = async (formData: FormData) => {
     images: [] as string[],
   };
 
-  const imageURLs = [];
-
-  for (const image of images) {
-    const buffer = await image.arrayBuffer();
-    const imageArray = Array.from(new Uint8Array(buffer));
-    const imageData = Buffer.from(imageArray);
-    const imageBase64 = imageData.toString('base64');
-
-    const res = await cloudinary.uploader.upload(
-      `data:image/png;base64,${imageBase64}`,
-      {
-        folder: 'next-property',
-      }
-    );
-
-    imageURLs.push(res.secure_url);
-  }
+  const imageURLs = await uploadImages(images);
 
   propertyData.images = imageURLs;
 

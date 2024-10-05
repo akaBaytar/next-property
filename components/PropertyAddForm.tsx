@@ -1,3 +1,5 @@
+import SubmitButton from './SubmitButton';
+
 import { addProperty } from '@/actions/properties.action';
 
 const PropertyAddForm = () => {
@@ -380,11 +382,7 @@ const PropertyAddForm = () => {
         />
       </div>
       <div>
-        <button
-          className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-md w-full focus:outline-none focus:shadow-outline'
-          type='submit'>
-          Add Property
-        </button>
+        <SubmitButton />
       </div>
     </form>
   );
