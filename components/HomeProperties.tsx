@@ -17,7 +17,7 @@ const HomeProperties = async () => {
             Recent Properties
           </h2>
           {properties && properties.length === 0 ? (
-            <p>No properties found.</p>
+            <p className='text-xl'>No properties were found.</p>
           ) : (
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {recentProperties &&
@@ -31,13 +31,15 @@ const HomeProperties = async () => {
           )}
         </div>
       </section>
-      <section className='m-auto max-w-sm mb-10 px-6'>
-        <Link
-          href='/properties'
-          className='block bg-black text-white text-center py-3 px-6 rounded-md hover:bg-gray-900 transition-colors duration-200'>
-          View All Properties
-        </Link>
-      </section>
+      {properties && properties.length > 0 && (
+        <section className='m-auto max-w-sm mb-10 px-6'>
+          <Link
+            href='/properties'
+            className='block bg-black text-white text-center py-3 px-6 rounded-md hover:bg-gray-900 transition-colors duration-200'>
+            View All Properties
+          </Link>
+        </section>
+      )}
     </>
   );
 };

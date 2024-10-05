@@ -1,6 +1,5 @@
 [
   {
-    "ownerId": "1",
     "name": "Boston Commons Retreat",
     "type": "Apartment",
     "description": "This is a beautiful apartment located near the commons. It is a 2 bedroom apartment with a full kitchen and bathroom. It is available for weekly or monthly rentals.",
@@ -44,7 +43,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "1",
     "name": "Cozy Downtown Loft",
     "type": "Apartment",
     "description": "A cozy downtown loft with great city views.",
@@ -87,7 +85,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "2",
     "name": "Luxury Condo with a View",
     "type": "Condo",
     "description": "Experience luxury in this stunning condo with breathtaking views.",
@@ -132,7 +129,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "2",
     "name": "Charming Cottage Getaway",
     "type": "Cabin or Cottage",
     "description": "Escape to this charming cottage for a peaceful retreat.",
@@ -165,7 +161,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "3",
     "name": "Modern Downtown Studio",
     "type": "Studio",
     "description": "Stay in style in this modern downtown studio apartment.",
@@ -200,7 +195,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "3",
     "name": "Seaside Retreat",
     "type": "House",
     "description": "Escape to this seaside house for a relaxing getaway.",
@@ -235,7 +229,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "4",
     "name": "Rustic Cabin in the Woods",
     "type": "Cabin or Cottage",
     "description": "Experience nature in this cozy rustic cabin.",
@@ -269,7 +262,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "5",
     "name": "Ski-In/Ski-Out Chalet",
     "type": "Chalet",
     "description": "Hit the slopes from this cozy ski-in/ski-out chalet.",
@@ -303,7 +295,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "6",
     "name": "Mountain View Retreat",
     "type": "House",
     "description": "Enjoy stunning mountain views from this spacious retreat.",
@@ -338,7 +329,6 @@
     "updatedAt": "2024-07-25T15:20:31.000+00:00"
   },
   {
-    "ownerId": "7",
     "name": "Historic Downtown Loft",
     "type": "Apartment",
     "description": "Step back in time with a stay in this historic downtown loft.",
