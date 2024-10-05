@@ -12,11 +12,11 @@ const PropertiesPage = async () => {
         <h2 className='text-2xl font-semibold text-indigo-500 mb-6'>
           All Properties
         </h2>
-        {properties.length === 0 ? (
+        {properties && properties.length === 0 ? (
           <p>No properties found.</p>
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {properties.map((property) => (
+            {properties && properties.map((property) => (
               <PropertyCard key={property.id} property={property as Property} />
             ))}
           </div>
