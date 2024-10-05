@@ -1,9 +1,15 @@
+'use server';
+
 import prisma from '@/database';
 
 export const getAllProperties = async () => {
-  const properties = await prisma.property.findMany();
+  try {
+    const properties = await prisma.property.findMany();
 
-  return properties;
+    return properties;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getProperty = async (id: string) => {
