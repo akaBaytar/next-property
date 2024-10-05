@@ -17,3 +17,7 @@ body {
 ::-webkit-scrollbar-thumb {
   @apply rounded-full bg-indigo-100 border-[1px] border-transparent border-solid bg-clip-padding;
 }
+
+input[type='checkbox'] {
+  @apply accent-indigo-500 cursor-pointer;
+}
