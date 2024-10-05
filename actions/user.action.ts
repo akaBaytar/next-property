@@ -3,7 +3,7 @@
 import prisma from '@/database';
 
 type CreateUser = {
-  id: string;
+  clerkId: string;
   email: string;
   username: string;
   image: string;
@@ -13,7 +13,7 @@ export const createUser = async (user: CreateUser) => {
   try {
     const newUser = await prisma.user.create({
       data: {
-        id: user.id,
+        clerkId: user.clerkId,
         email: user.email,
         image: user.image,
         username: user.username,

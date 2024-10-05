@@ -96,7 +96,7 @@ const Navbar = () => {
           </div>
           {!isLoggedIn && (
             <div className='flex items-center'>
-              <SignInButton mode='modal'>
+              <SignInButton mode='modal' forceRedirectUrl='/'>
                 <button className='flex items-center text-white text-sm bg-indigo-700 hover:bg-indigo-800 rounded-md px-3 py-2 transition-colors duration-200'>
                   <FaGoogle className='me-2' />
                   <span>Login or Register</span>
@@ -143,7 +143,7 @@ const Navbar = () => {
                     <span className='sr-only'>Open user menu</span>
                     <Image
                       className='h-8 w-8 rounded-full'
-                      src={user?.imageUrl ??PROFILE}
+                      src={user?.imageUrl ?? PROFILE}
                       alt='Profile Icon'
                       width={64}
                       height={64}
