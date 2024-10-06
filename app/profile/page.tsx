@@ -12,7 +12,7 @@ const ProfilePage = async () => {
 
   return (
     <section className='bg-indigo-50'>
-      <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pb-24'>
+      <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
         <h1 className='text-2xl font-semibold text-indigo-500 mb-6 mt-12 px-2 md:px-0'>
           Profile
         </h1>
@@ -49,7 +49,7 @@ const ProfilePage = async () => {
         </div>
         <div className='mx-auto max-w-7xl px-2 md:px-0 pb-24'>
           <h2 className='text-2xl font-semibold text-indigo-500 mb-6 mt-12'>
-            Your Listings
+            Your Properties
           </h2>
           <div className='bg-white p-6 mb-4 shadow-md rounded-md border'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8'>
