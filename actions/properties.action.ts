@@ -25,6 +25,14 @@ export const getProperty = async (id: string) => {
   if (property) return property;
 };
 
+export const getPropertiesByUserId = async (userId: string) => {
+  const properties = await prisma.property.findMany({
+    where: { ownerId: userId },
+  });
+
+  if (properties) return properties;
+};
+
 export const addProperty = async (formData: FormData) => {
   const user = await getUser();
 
