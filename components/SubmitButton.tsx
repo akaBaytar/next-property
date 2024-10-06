@@ -3,7 +3,7 @@
 import { useFormStatus } from 'react-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const SubmitButton = () => {
+const SubmitButton = ({ text = 'Add Property' }: { text?: string }) => {
   const { pending } = useFormStatus();
 
   return (
@@ -14,7 +14,7 @@ const SubmitButton = () => {
       {pending ? (
         <AiOutlineLoading3Quarters className='text-2xl animate-spin' />
       ) : (
-        <span>Add Property</span>
+        <span>{text}</span>
       )}
     </button>
   );

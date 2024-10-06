@@ -47,11 +47,11 @@ const ProfileProperties = ({ propertyList }: { propertyList: Property[] }) => {
         </p>
       </div>
       <div className='absolute right-2 top-2 flex gap-2'>
-        <button
-          type='button'
+        <Link
+          href={`/properties/${property.id}/edit`}
           className='bg-indigo-500 hover:bg-indigo-700 text-white p-2 rounded-md transition-colors duration-200'>
           <FaPen />
-        </button>
+        </Link>
         <button
           type='button'
           onClick={() => handleDelete(property.id)}
