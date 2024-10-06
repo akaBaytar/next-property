@@ -29,7 +29,7 @@ const ProfileProperties = ({ propertyList }: { propertyList: Property[] }) => {
         <p className='text-lg font-semibold'>{property.name}</p>
         <p className='text-gray-600'>
           {property.location.street} {property.location.city}{' '}
-          {property.location.state} {property.location.zipCode}
+          {property.location.state}
         </p>
       </div>
     </div>

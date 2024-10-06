@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 import prisma from '@/database';
-import { uploadImages } from '@/database/cloudinary';
+import { uploadImages, deleteImages } from '@/database/cloudinary';
 import { getFloat, getInt, getString, getUser } from '@/helpers';
 
 export const getAllProperties = async () => {
@@ -86,4 +86,33 @@ export const addProperty = async (formData: FormData) => {
 
   revalidatePath('/', 'layout');
   redirect(`/properties/${newProperty.id}`);
+};
+
+export const deleteProperty = async (id: string) => {
+  const user = await getUser();
+
+  if (!user || !user.userId) {
+    throw new Error('User ID is required for delete property.');
+  }
+
+  const property = await prisma.property.findUnique({
+    where: {
+      id,
+      ownerId: user.userId,
+    },
+  });
+
+  if (!property) throw new Error('Property not found.');
+
+  const publicIDs = property.images.map((url) => {
+    const parts = url.split('/');
+
+    return parts.at(-1)?.split('.').at(0);
+  });
+
+  deleteImages(publicIDs as string[]);
+
+  await prisma.property.delete({ where: { id } });
+
+  revalidatePath('/', 'layout');
 };

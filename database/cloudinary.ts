@@ -42,3 +42,11 @@ export const uploadImages = async (images: File[]): Promise<string[]> => {
 
   return imageURLs;
 };
+
+export const deleteImages = async (publicIDs: string[]) => {
+  if (publicIDs.length > 0) {
+    for (const publicID of publicIDs) {
+      await cloudinary.uploader.destroy(`next-property/${publicID}`);
+    }
+  }
+};
