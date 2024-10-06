@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { FaArrowLeft } from 'react-icons/fa6';
+import { FaArrowLeft, FaImages } from 'react-icons/fa6';
 import PropertyInfo from '@/components/PropertyInfo';
 import PropertyImages from '@/components/PropertyImages';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage';
@@ -31,7 +31,14 @@ const PropertyPage = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
         </section>
-        <PropertyImages images={property.images} />
+        <div className='bg-indigo-50'>
+          <div className='mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8'>
+            <h3 className='flex items-center gap-2 justify-center md:justify-start text-lg text-indigo-500 font-semibold pb-4'>
+              <FaImages /> Property Images
+            </h3>
+            <PropertyImages images={property.images} />
+          </div>
+        </div>
       </>
     );
   }
