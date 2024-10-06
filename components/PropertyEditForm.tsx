@@ -1,9 +1,10 @@
 import { Property } from '@/types';
 import SubmitButton from './SubmitButton';
+import { updateProperty } from '@/actions/properties.action';
 
 const PropertyEditForm = ({ property }: { property: Property }) => {
   return (
-    <form>
+    <form action={updateProperty.bind(null, property.id)}>
       <div className='mb-6'>
         <label htmlFor='type' className='block text-gray-700 font-bold mb-2'>
           Property Type
