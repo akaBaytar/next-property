@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        '70/30': '70% 28%',
+        '70/30': '66% 32.3%',
       },
     },
   },

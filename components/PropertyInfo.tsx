@@ -5,7 +5,7 @@ import { Property } from '@/types';
 
 const PropertyInfo = ({ property }: { property: Property }) => {
   return (
-    <main>
+    <main className='flex flex-col justify-between'>
       <div className='bg-white p-6 rounded-md shadow-md text-center md:text-left'>
         <div className='text-gray-500 mb-4'>{property.type}</div>
         <h1 className='text-2xl font-semibold mb-4'>{property.name}</h1>
