@@ -30,7 +30,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
         className='w-full h-auto rounded-t-md'
       />
       <div className='p-4'>
-        <div className='text-left md:text-center lg:text-left mb-6'>
+        <div className='mb-6'>
           <div className='text-gray-600'>{property.type}</div>
           <h3 className='text-xl font-bold'>{property.name}</h3>
         </div>

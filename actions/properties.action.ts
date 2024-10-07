@@ -166,3 +166,21 @@ export const updateProperty = async (id: string, formData: FormData) => {
   revalidatePath('/', 'layout');
   redirect(`/properties/${property.id}`);
 };
+
+export const searchProperty = async (query: string) => {
+  const properties = await prisma.property.findMany({
+    where: {
+      AND: [
+        {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { description: { contains: query, mode: 'insensitive' } },
+            { owner: { username: { contains: query, mode: 'insensitive' } } },
+          ],
+        },
+      ],
+    },
+  });
+
+  return properties;
+};
