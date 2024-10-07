@@ -5,7 +5,9 @@ import { Property } from '@/types';
 const ContactForm = ({ property }: { property: Property }) => {
   return (
     <div className='bg-white p-4 rounded-md shadow-md'>
-      <h3 className='text-lg font-semibold mb-2'>Contact Product Manager</h3>
+      <h3 className='text-lg font-semibold mb-2 text-center lg:text-start'>
+        Contact Product Manager
+      </h3>
       <form>
         <div className='mb-4 text-sm'>
           <label
@@ -62,7 +64,8 @@ const ContactForm = ({ property }: { property: Property }) => {
             className='shadow appearance-none border rounded-md w-full p-2 text-gray-700 h-40 focus:outline-none focus:shadow-outline resize-none'
             id='message'
             name='message'
-            placeholder='Enter your message'/>
+            placeholder='Enter your message'
+          />
         </div>
         <div>
           <button
