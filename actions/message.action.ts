@@ -111,5 +111,24 @@ export const markAsRead = async (id: string) => {
     throw new Error('Message not found.');
   }
 
-  revalidatePath('/messages');
+  revalidatePath('/messages', 'page');
+};
+
+export const deleteMessage = async (id: string) => {
+  const session = await getUser();
+
+  if (!session || !session.userId) {
+    throw new Error('User ID  required for send message.');
+  }
+
+  const { userId } = session;
+
+  await prisma.message.delete({
+    where: {
+      id,
+      recipientId: userId,
+    },
+  });
+
+  revalidatePath('/messages', 'page');
 };
