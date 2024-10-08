@@ -132,3 +132,22 @@ export const deleteMessage = async (id: string) => {
 
   revalidatePath('/messages', 'page');
 };
+
+export const getNotification = async () => {
+  const session = await getUser();
+
+  if (!session || !session.userId) {
+    throw new Error('User ID  required for send message.');
+  }
+
+  const { userId } = session;
+
+  const notification = await prisma.message.count({
+    where: {
+      recipientId: userId,
+      read: false,
+    },
+  });
+
+  return { notification };
+};

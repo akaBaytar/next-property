@@ -1,23 +1,30 @@
 'use client';
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from '@clerk/nextjs';
+
+import { getNotification } from '@/actions/message.action';
 
 const GlobalContext = createContext();
 
-export function GlobalProvider({ children }) {
+export const GlobalProvider = ({ children }) => {
   const [unreadCount, setUnreadCount] = useState(0);
 
+  const { userId } = useAuth();
+
+  useEffect(() => {
+    if (userId) {
+      getNotification().then((res) => {
+        if (res.notification) setUnreadCount(res.notification);
+      });
+    }
+  }, [userId]);
+
   return (
-    <GlobalContext.Provider
-      value={{
-        unreadCount,
-        setUnreadCount,
-      }}>
+    <GlobalContext.Provider value={{ unreadCount }}>
       {children}
     </GlobalContext.Provider>
   );
-}
+};
 
-export function useGlobalContext() {
-  return useContext(GlobalContext);
-}
+export const useGlobalContext = () => useContext(GlobalContext);
