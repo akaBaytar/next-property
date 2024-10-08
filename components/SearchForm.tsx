@@ -4,7 +4,6 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const SearchForm = () => {
-  const [type, setType] = useState('');
   const [query, setQuery] = useState('');
 
   const router = useRouter();
