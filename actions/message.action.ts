@@ -43,3 +43,43 @@ export const addMessage = async (_: PrevState, formData: FormData) => {
     submitted: true,
   };
 };
+
+export const getMessages = async () => {
+  const session = await getUser();
+
+  if (!session || !session.userId) {
+    throw new Error('User ID  required for send message.');
+  }
+
+  const { userId } = session;
+
+  const readMessages = await prisma.message.findMany({
+    where: {
+      recipientId: userId,
+      read: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      property: true,
+      sender: true,
+    },
+  });
+
+  const unreadMessages = await prisma.message.findMany({
+    where: {
+      recipientId: userId,
+      read: false,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      property: true,
+      sender: true,
+    },
+  });
+
+  return { readMessages, unreadMessages };
+};
