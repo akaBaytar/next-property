@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import prisma from '@/database';
 import { getUser, getString } from '@/helpers';
 
@@ -82,4 +84,32 @@ export const getMessages = async () => {
   });
 
   return { readMessages, unreadMessages };
+};
+
+export const markAsRead = async (id: string) => {
+  const session = await getUser();
+
+  if (!session || !session.userId) {
+    throw new Error('User ID  required for send message.');
+  }
+
+  const { userId } = session;
+
+  const message = await prisma.message.update({
+    where: {
+      id,
+      recipientId: userId,
+    },
+    data: {
+      read: {
+        set: true,
+      },
+    },
+  });
+
+  if (!message) {
+    throw new Error('Message not found.');
+  }
+
+  revalidatePath('/messages');
 };

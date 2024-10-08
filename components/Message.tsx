@@ -1,8 +1,15 @@
 import { Message as PropType } from '@/types';
 
-const Message = ({ message }: { message: PropType }) => {
+import { markAsRead } from '@/actions/message.action';
+
+const Message = async ({ message }: { message: PropType }) => {
   return (
     <div className='relative bg-white p-4 rounded-md shadow-md border border-gray-200'>
+      {!message.read && (
+        <div className="absolute top-2 right-2 bg-indigo-500 text-white text-xs px-2 py-1 rounded-md">
+          New
+        </div>
+      )}
       <h2 className='text-lg mb-2'>
         <span className='font-semibold'>Property Inquiry: </span>
         {message.property.name}
@@ -30,16 +37,22 @@ const Message = ({ message }: { message: PropType }) => {
           {new Date(message.createdAt).toLocaleDateString()}
         </li>
       </ul>
-      <button
-        type='button'
-        className='mt-4 me-2 bg-indigo-500 text-white py-2 px-4 rounded-md'>
-        Mark as Read
-      </button>
-      <button
-        type='button'
-        className='mt-4 bg-pink-700 text-white py-2 px-4 rounded-md'>
-        Delete Message
-      </button>
+      <div className='flex items-center gap-2'>
+        {!message.read && (
+          <form action={markAsRead.bind(null, message.id)}>
+            <button
+              type='submit'
+              className='mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md'>
+              Mark as Read
+            </button>
+          </form>
+        )}
+        <button
+          type='submit'
+          className='mt-4 bg-pink-700 text-white py-2 px-4 rounded-md'>
+          Delete Message
+        </button>
+      </div>
     </div>
   );
 };
