@@ -57,3 +57,18 @@ export type Property = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Message = {
+  id: string;
+  senderId: string;
+  recipientId: string;
+  propertyId: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  body: string;
+  read: boolean;
+  property: { name: string };
+  createdAt: Date;
+  updatedAt: Date;
+};

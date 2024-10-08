@@ -20,7 +20,7 @@ const MessagesPage = async () => {
         Your Messages
       </h3>
       <div className='px-6 lg:px-8'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
           {messages.map((message) => (
             <Message key={message.id} message={message} />
           ))}
