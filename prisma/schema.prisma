@@ -8,53 +8,72 @@ datasource db {
 }
 
 model User {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  clerkId     String     @unique
-  email       String     @unique
-  username    String?    @unique
-  image       String?
-  properties  Property[]
-  bookmarks   String[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId           String      @unique
+  email             String      @unique
+  username          String?     @unique
+  image             String?
+  properties        Property[]
+  bookmarks         String[]
+  messagesSent      Message[]   @relation("sender")
+  messagesReceived  Message[]   @relation("recipient")
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 }
 
 model Property {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  ownerId     String     @db.ObjectId
-  owner       User       @relation(fields: [ownerId], references: [id])
-  name        String
-  type        String
-  description String
-  location    Location
-  beds        Int
-  baths       Int
-  squareFeet  Int        @map("square_feet")
-  amenities   String[]
-  rates       Rates
-  sellerInfo  SellerInfo @map("seller_info")
-  images      String[]
-  isFeatured  Boolean    @default(false) @map("is_featured")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId           String      @db.ObjectId
+  owner             User        @relation(fields: [ownerId], references: [id])
+  name              String
+  type              String
+  description       String
+  location          Location
+  beds              Int
+  baths             Int
+  rates             Rates
+  squareFeet        Int         @map("square_feet")
+  sellerInfo        SellerInfo  @map("seller_info")
+  amenities         String[]
+  images            String[]
+  messages          Message[]   @relation("messages")
+  isFeatured        Boolean     @default(false) @map("is_featured")
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
 
+model Message {
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  senderId          String      @db.ObjectId
+  recipientId       String      @db.ObjectId
+  propertyId        String      @db.ObjectId
+  name              String 
+  email             String
+  phone             String?
+  body              String
+  read              Boolean     @default(false)
+  sender            User        @relation("sender", fields: [senderId], references: [id])
+  recipient         User        @relation("recipient", fields: [recipientId], references: [id])
+  property          Property    @relation("messages", fields: [propertyId], references: [id])
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 }
 
 type Location {
-  street  String
-  city    String
-  state   String
-  zipCode String
+  street    String
+  city      String
+  state     String
+  zipCode   String
 }
 
 type Rates {
-  nightly Float?
-  weekly  Float?
-  monthly Float?
+  nightly   Float?
+  weekly    Float?
+  monthly   Float?
 }
 
 type SellerInfo {
-  name  String
-  email String
-  phone String
+  name    String
+  email   String
+  phone   String
 }
