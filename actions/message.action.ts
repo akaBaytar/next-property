@@ -3,7 +3,12 @@
 import prisma from '@/database';
 import { getUser, getString } from '@/helpers';
 
-export const addMessage = async (formData: FormData) => {
+type PrevState = {
+  message: string;
+  submitted: boolean;
+};
+
+export const addMessage = async (_: PrevState, formData: FormData) => {
   const session = await getUser();
 
   if (!session || !session.userId) {
@@ -15,7 +20,10 @@ export const addMessage = async (formData: FormData) => {
   const recipientId = formData.get('recipient');
 
   if (userId === recipientId) {
-    return { error: 'You can not send a message to yourself.' };
+    return {
+      message: 'You can not send a message to yourself.',
+      submitted: false,
+    };
   }
 
   await prisma.message.create({
@@ -30,5 +38,8 @@ export const addMessage = async (formData: FormData) => {
     },
   });
 
-  return { submitted: true };
+  return {
+    message: 'Message has been sent to property manager.',
+    submitted: true,
+  };
 };
